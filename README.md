@@ -1,4 +1,4 @@
-# Android-Iconics  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/iconics-core/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.mikepenz/iconics-core) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android--Iconics-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1164)
+# Android-Iconics  [ ![Download](https://api.bintray.com/packages/mikepenz/maven/com.mikepenz%3Aiconics-core/images/download.svg) ](https://bintray.com/mikepenz/maven/com.mikepenz%3Aiconics-core/_latestVersion)
 
 ![Image](https://raw.githubusercontent.com/mikepenz/Android-Iconics/feature/next-generation/DEV/github/banner.png)
 
@@ -16,8 +16,13 @@ Use the icons in the variation you need them.
 
 **What do you get**
 - No customization limitations (size, color, contour, background, padding, positioning, ...)
+- Shadow support
 - One icon source (no more mdpi, hdpi, ...)
 - Flexibility
+  - Size
+  - Colors
+  - Contour
+  - Shadow
 - If it takes a Drawable, it will also work with the IconicsDrawable!
 - Save in APK size
 - All licenses included, best used with [AboutLibraries](https://github.com/mikepenz/AboutLibraries)
@@ -25,7 +30,7 @@ Use the icons in the variation you need them.
 **Already available fonts**
 - [Google Material Design Icons](https://github.com/google/material-design-icons)
 - [Material Design Iconic Font](http://zavoloklom.github.io/material-design-iconic-font)
-- [Fontawesome](http://fontawesome.io)
+- [Fontawesome](https://fontawesome.com/)
 - [Meteocons](http://www.alessioatzeni.com/meteocons/)
 - [Octicons](https://github.com/github/octicons)
 - [Community Material](http://materialdesignicons.com/)
@@ -39,6 +44,17 @@ Use the icons in the variation you need them.
 **Need more?**
 Provide additional fonts for you project, or even create your custom font with just the icons you need.
 
+# String fields for icons
+For generating string field for each of icons of your font, you can use this simple generator:
+
+[Android-Iconics String Generator](https://github.com/zTrap/Android-Iconics-String-Generator)
+
+# Android module generator
+
+A awesome gradle plugin which can automatically fetch a font from Fontastic, and generate the Android Module for your project.
+
+[Iconics-Font-Generator](https://github.com/ligol/IconicsFontGenerator)
+
 # Migration
 - [MIGRATION GUIDE](https://github.com/mikepenz/Android-Iconics/blob/develop/MIGRATION.md)
 
@@ -46,64 +62,54 @@ Provide additional fonts for you project, or even create your custom font with j
 
 ## 1. Provide the gradle dependency
 ```gradle
-//the core iconcis library (without any widgets)
-compile "com.mikepenz:iconics-core:2.9.3@aar"
+//the core iconics library (without any widgets)
+implementation "com.mikepenz:iconics-core:4.0.0"
+implementation "androidx.appcompat:appcompat:$versions.appCompat"
 ```
 
 ## 1b. (optional) Add the view's dependency
-```
+```gradle
 //this adds all ui view widgets (IconicsButton, IconicsImageView, ...)
-compile "com.mikepenz:iconics-views:2.9.3@aar"
-compile "com.android.support:appcompat-v7:${supportLibVersion}"
+implementation "com.mikepenz:iconics-views:4.0.0"
 ```
 
+For the non kotlin variant please use a version smaller than 4.x.y (See the releases on GitHub)
+To use appcompat please use a version smaller than 3.1.0. (See the releases on GitHub)
 
 ## 2. Choose your desired fonts
-```groove
-compile 'com.mikepenz:google-material-typeface:3.0.1.1.original@aar'
-compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.3@aar'
-compile 'com.mikepenz:fontawesome-typeface:4.7.0.1@aar'
-compile 'com.mikepenz:octicons-typeface:3.2.0.3@aar'
-compile 'com.mikepenz:meteocons-typeface:1.1.0.3@aar'
-compile 'com.mikepenz:community-material-typeface:1.9.32.2@aar'
-compile 'com.mikepenz:weather-icons-typeface:2.0.10.3@aar'
-compile 'com.mikepenz:typeicons-typeface:2.0.7.3@aar'
-compile 'com.mikepenz:entypo-typeface:1.0.0.3@aar'
-compile 'com.mikepenz:devicon-typeface:2.0.0.3@aar'
-compile 'com.mikepenz:foundation-icons-typeface:3.0.0.3@aar'
-compile 'com.mikepenz:ionicons-typeface:2.0.1.3@aar'
-compile 'com.mikepenz:pixeden-7-stroke-typeface:1.2.0.1@aar'
+```gradle
+implementation 'com.mikepenz:google-material-typeface:3.0.1.4.original-kotlin@aar'
+implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.6-kotlin@aar'
+implementation 'com.mikepenz:fontawesome-typeface:5.3.1.2-kotlin@aar'
+implementation 'com.mikepenz:octicons-typeface:3.2.0.6-kotlin@aar'
+implementation 'com.mikepenz:meteocons-typeface:1.1.0.5-kotlin@aar'
+implementation 'com.mikepenz:community-material-typeface:3.5.95.1-kotlin@aar'
+implementation 'com.mikepenz:weather-icons-typeface:2.0.10.5-kotlin@aar'
+implementation 'com.mikepenz:typeicons-typeface:2.0.7.5-kotlin@aar'
+implementation 'com.mikepenz:entypo-typeface:1.0.0.5-kotlin@aar'
+implementation 'com.mikepenz:devicon-typeface:2.0.0.5-kotlin@aar'
+implementation 'com.mikepenz:foundation-icons-typeface:3.0.0.5-kotlin@aar'
+implementation 'com.mikepenz:ionicons-typeface:2.0.1.5-kotlin@aar'
+implementation 'com.mikepenz:pixeden-7-stroke-typeface:1.2.0.3-kotlin@aar'
 ```
 
 ## 3. Define IconicsLayoutInflater to enable automatic xml icons detection (optional)
 Set the `IconicsLayoutInflater` as new `LayoutInflaterFactory`. This will enable automatic icon detection for `TextViews`,`Buttons`, and allow you to set icons on `ImageView`'s via xml. This is compatible with libs which wrap the `baseContext` like [Calligraphy](https://github.com/chrisjenx/Calligraphy). This does not work on FAB's please use the `Context-Injection` instead.
-If compileSdkVersion >= 26:
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    LayoutInflaterCompat.setFactory2(getLayoutInflater(), new IconicsLayoutInflater2(getDelegate()));
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    layoutInflater.setIconicsFactory(delegate)
+    super.onCreate(savedInstanceState)
     //...
-    super.onCreate(savedInstanceState);
-    //...
-}
-```
-Else:
-```java
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    LayoutInflaterCompat.setFactory(getLayoutInflater(), new IconicsLayoutInflater(getDelegate()));
-    //...
-    super.onCreate(savedInstanceState);
     //...
 }
 ```
 
 ### 3. ALTERNATIVE: Inject into Context (optional)
 Wrap the `Activity` context. This will enable the same features as Step 3.1., but is not compatible with other libs wrapping the `baseContext`.
-```java
-@Override
-protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(IconicsContextWrapper.wrap(newBase));
+```kotlin
+override fun attachBaseContext(newBase: Context) {
+    super.attachBaseContext(newBase.wrapByIconics())
 }
 ```
 
@@ -111,11 +117,11 @@ protected void attachBaseContext(Context newBase) {
 # Usage
 ## Use as drawable
 
-```java
-new IconicsDrawable(this)
+```kotlin
+IconicsDrawable(this)
     .icon(FontAwesome.Icon.faw_android)
-    .color(Color.RED)
-    .sizeDp(24)
+    .color(Color.RED.toIconicsColor())
+    .size(24.toIconicsSizeDp())
 ```
 
 ## Use via XML
@@ -136,7 +142,7 @@ Some great text with a {faw-android} font awesome icon and {met-wind} meteocons 
     android:layout_width="48dp"
     android:layout_height="48dp"
     app:ico_color="@color/md_red_A200"
-    app:ico_icon="gmd-plus-circle"
+    app:ico_icon="gmd-plus-circle" // or @string/gmd_plus_circle with our generator
     app:ico_size="48dp" />
     
     //other possible attributes
@@ -168,7 +174,7 @@ Some great text with a {faw-android} font awesome icon and {met-wind} meteocons 
     android:layout_width="72dp"
     android:layout_height="72dp"
     app:iiv_color="@android:color/holo_red_dark"
-    app:iiv_icon="gmd-favorite" />
+    app:iiv_icon="gmd-favorite" />  // or @string/gmd_favorite with our generator
 ```
 
 #### As IconicsTextView
@@ -198,87 +204,68 @@ Some great text with a {faw-android} font awesome icon and {met-wind} meteocons 
 
 
 # Available fonts
-* [Google Material Design Icons](https://github.com/google/material-design-icons)
-  * "gmd"
-  * **ORIGINAL by Google** compile 'com.mikepenz:google-material-typeface:+.original@aar'
-* [Material Design Iconic Font](http://zavoloklom.github.io/material-design-iconic-font)
-  * "gmi"
-  * **Google Material Iconic** compile 'com.mikepenz:material-design-iconic-typeface:+@aar'
-* [Fontawesome](http://fontawesome.io)
-  * "faw"
-  * compile 'com.mikepenz:fontawesome-typeface:+@aar'
-* [Meteocons](http://www.alessioatzeni.com/meteocons/)
-  * "met"
-  * compile 'com.mikepenz:meteocons-typeface:+@aar'
-* [Octicons](https://github.com/github/octicons)
-  * "oct"
-  * compile 'com.mikepenz:octicons-typeface:+@aar'
-* [Community Material](http://materialdesignicons.com/)
-  * "cmd"
-  * compile 'com.mikepenz:community-material-typeface:+@aar'
-* [Weather Icons](https://erikflowers.github.io/weather-icons/)
-  * "wic"
-  * compile 'com.mikepenz:weather-icons-typeface:+@aar'
-* [Typeicons](http://typicons.com/)
-  * "typ"
-  * compile 'com.mikepenz:typeicons-typeface:+@aar'
-* [Entypo](http://www.entypo.com/)
-  * "ent"
-  * compile 'com.mikepenz:entypo-typeface:+@aar'
-* [Devicon](http://devicon.fr/)
-  * "dev"
-  * compile 'com.mikepenz:devicon-typeface:+@aar'
-* [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)
-  * "fou"
-  * compile 'com.mikepenz:foundation-icons-typeface:+@aar'
-* [Ionicons](http://ionicons.com/)
-  * "ion"
-  * compile 'com.mikepenz:ionicons-typeface:+@aar'
-* [Pixden7Stroke](http://themes-pixeden.com/font-demos/7-stroke/)
-  * "pe7"
-  * compile 'com.mikepenz:pixeden-7-stroke-typeface:+@aar'
+|Link|Prefix|Dependency|
+|---|---|---|
+|[Google Material Design Icons](https://github.com/google/material-design-icons) **ORIGINAL by Google**|gmd|implementation 'com.mikepenz:google-material-typeface:+.original@aar'|
+|[Material Design Iconic Font](http://zavoloklom.github.io/material-design-iconic-font) **Google Material Iconic**|gmi|implementation 'com.mikepenz:material-design-iconic-typeface:+@aar'|
+|[Fontawesome](https://fontawesome.com/)|faw|implementation 'com.mikepenz:fontawesome-typeface:+@aar'|
+|[Meteocons](http://www.alessioatzeni.com/meteocons/)|met|implementation 'com.mikepenz:meteocons-typeface:+@aar'|
+|[Octicons](https://github.com/github/octicons)|oct|implementation 'com.mikepenz:octicons-typeface:+@aar'|
+|[Community Material](http://materialdesignicons.com/)|cmd|implementation 'com.mikepenz:community-material-typeface:+@aar'|
+|[Weather Icons](https://erikflowers.github.io/weather-icons/)|wic|implementation 'com.mikepenz:weather-icons-typeface:+@aar'|
+|[Typeicons](http://typicons.com/)|typ|implementation 'com.mikepenz:typeicons-typeface:+@aar'|
+|[Entypo](http://www.entypo.com/)|ent|implementation 'com.mikepenz:entypo-typeface:+@aar'|
+|[Devicon](http://devicon.fr/)|dev|implementation 'com.mikepenz:devicon-typeface:+@aar'|
+|[Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3)|fou|implementation 'com.mikepenz:foundation-icons-typeface:+@aar'|
+|[Ionicons](http://ionicons.com/)|ion|implementation 'com.mikepenz:ionicons-typeface:+@aar'|
+|[Pixden7Stroke](http://themes-pixeden.com/font-demos/7-stroke/)|pe7|implementation 'com.mikepenz:pixeden-7-stroke-typeface:+@aar'|
 
-Licenses for all included fonts are linked inside the class or can be found on the coresponding repoistories.
+Licenses for all included fonts are linked inside the class or can be found on the coresponding repositories.
 
 # Advanced Usage
 
 ### Register fonts
 
 If you want to add your own custom font, or a GenericFont you have to register this font (before using it). The best place to do this is the `Application`.
-```java
-public class CustomApplication extends Application {
-    @Override
-    public void onCreate() {
-        super.onCreate();
+You can manually provide `applicationContext` and trigger initialization, or you can use our `IconicsContentProvider` and do absolutely nothing.
+
+If you want to use tha manual way - place this value into your resources
+```xml
+<bool name="is_iconics_content_provider_enabled">false</bool>
+```
+And initialize Iconics as you wish
+```kotlin
+class CustomApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
 
         //only required if you add a custom or generic font on your own
-        Iconics.init(getApplicationContext());
+        Iconics.init(applicationContext)
 
         //register custom fonts like this (or also provide a font definition file)
-        Iconics.registerFont(new CustomFont());
+        Iconics.registerFont(CustomFont())
     }
 }
-
 ```
 
 ### Advanced IconicsBuilder
 Everything is easy and simple. Right? But now you got a single icon within your textview and you need additional styling?
 Just define the style for all icons or only a specific one. You can find this in the PlaygroundActivity of the sample too.
-```java
-new Iconics.IconicsBuilder().ctx(this)
-                .style(new ForegroundColorSpan(Color.WHITE), new BackgroundColorSpan(Color.BLACK), new RelativeSizeSpan(2f))
-                .styleFor(FontAwesome.Icon.faw_adjust, new BackgroundColorSpan(Color.RED))
+```kotlin
+Iconics.Builder()
+    .style(ForegroundColorSpan(Color.WHITE), BackgroundColorSpan(Color.BLACK), RelativeSizeSpan(2f))
+    .styleFor(FontAwesome.Icon.faw_adjust, BackgroundColorSpan(Color.RED))
                 .on(tv1)
-                .build();
+    .build()
 ```
 
 ### String icon-key or typeface enum
 Sometimes you won't like to use the icon-key ("faw-adjust") like this, but use the enum provided by a specific font. Both is valid:
-```java
-  new IconicsDrawable(this, "faw-adjust").actionBar()
+```kotlin
+IconicsDrawable(this, "faw-adjust").actionBar()
 ```
-```java
-  new IconicsDrawable(this, FontAwesome.Icon.faw_adjust).sizeDp(24).paddingDp(1)
+```kotlin
+IconicsDrawable(this, FontAwesome.Icon.faw_adjust).size(24.toIconicsSizeDp()).padding(1.toIconicsSizeDp())
 ```
 
 
@@ -311,7 +298,7 @@ You can try the sample application out. It's on Google Play ;)
 https://play.google.com/store/apps/details?id=com.mikepenz.iconics.sample
 
 # Special Contributor
-- [Peter Gulko](https://github.com/zTrap) Thanks for providing better XML support for compound Iconics drawables, and for doing the initial work of splitting up core and views library
+- [Baptiste Lagache](https://github.com/ligol) Thanks for the gradle font module generator
 - Also thanks for all the other contributors.
 
 # Credits
@@ -322,12 +309,16 @@ https://play.google.com/store/apps/details?id=com.mikepenz.iconics.sample
 # Developed By
 
 * Mike Penz 
- * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
- * [paypal.me/mikepenz](http://paypal.me/mikepenz)
+  * [mikepenz.com](http://mikepenz.com) - <mikepenz@gmail.com>
+  * [paypal.me/mikepenz](http://paypal.me/mikepenz)
+
+
+* Peter Gulko
+  * [github.com/zTrap](https://github.com/zTrap)
 
 # License
 
-    Copyright 2016 Mike Penz
+    Copyright 2018 Mike Penz
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -340,5 +331,3 @@ https://play.google.com/store/apps/details?id=com.mikepenz.iconics.sample
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-
